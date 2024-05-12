@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profiles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        #search-input {
+            width: 50%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #user-profiles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .user-profile {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 250px;
+        }
+        .user-profile:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <input id="search-input" type="search" placeholder="Search by name">
+    </header>
+    <main id="user-profiles"></main>
+    <script>
+        const users = [
+            { id: 1, name: "John Doe", email: "johndoe@example.com", location: "New York" },
+            { id: 2, name: "Jane Doe", email: "janedoe@example.com", location: "London" },
+            { id: 3, name: "Bob Smith", email: "bobsmith@example.com", location: "Paris" },
+            // Add more users here
+        ];
+
+        const searchInput = document.getElementById("search-input");
+        const userProfileContainer = document.getElementById("user-profiles");
+
+        let filteredUsers = users;
+
+        searchInput.addEventListener("input", (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filteredUsers = users.filter((user) => user.name.toLowerCase().includes(searchTerm));
+            renderUserProfiles();
+        });
+
+        const renderUserProfiles = () => {
+            userProfileContainer.innerHTML = "";
+            filteredUsers.forEach((user) => {
+                const userProfileHTML = `
+                    <div class="user-profile">
+                        <h2>${user.name}</h2>
+                        <p>${user.email}</p>
+                        <p>${user.location}</p>
+                    </div>
+                `;
+                userProfileContainer.innerHTML += userProfileHTML;
+            });
+        };
+
+        renderUserProfiles();
+    </script>
+</body>
+</html>
